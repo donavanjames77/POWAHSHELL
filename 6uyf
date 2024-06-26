@@ -2,3 +2,31 @@ xfreerdp /u:student /v:10.50.34.234 -dynamic-resolution +glyph-cache +clipboard
 
 get-process | group-object {$_.Name.Substring(0,1).ToUpper()} | foreach-object {($_.name + " ") * 7; "================"; $_.group}
 get-process | sort-object starttime | select-object -last 10 | ft processname,starttime 
+
+---
+
+$text = 'Here is the model number: MO5364'
+$pattern = 'MO(\d{3})'
+$text -match $pattern
+
+$Matches[0]
+
+---
+
+$procs = "notepad", "msedge", "mspaint
+$procs | ForEach-Object {
+Start-Process $_
+}
+
+foreach ($proc in $procs){
+Get-Process | Where-Object {$_.Name -like $procs}
+}
+
+$procs | ForEach-Object { Stop-Process -name $_ }
+
+
+
+
+---
+
+format-table
